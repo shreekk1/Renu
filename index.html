@@ -1,1 +1,628 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khana Khau Hamlai? 🍛</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Kalam:wght@400;700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF9933;
+    --crimson: #C0392B;
+    --deep-red: #8B1A1A;
+    --gold: #D4A017;
+    --warm-cream: #FFF8EE;
+    --mustard: #E8A020;
+    --bg1: #1a0a00;
+    --bg2: #2d1200;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+min-height: 100vh;
+background: var(–bg1);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘Poppins’, sans-serif;
+overflow: hidden;
+position: relative;
+cursor: url(“data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text y='26' font-size='24'>🫙</text></svg>”) 16 16, auto;
+}
+
+/* Mandala background pattern */
+.mandala-bg {
+position: fixed;
+inset: 0;
+background:
+radial-gradient(circle at 20% 20%, rgba(255,153,51,0.12) 0%, transparent 50%),
+radial-gradient(circle at 80% 80%, rgba(192,57,43,0.15) 0%, transparent 50%),
+radial-gradient(circle at 50% 50%, rgba(212,160,23,0.08) 0%, transparent 60%);
+z-index: 0;
+}
+
+/* Decorative top/bottom border strips */
+.border-strip {
+position: fixed;
+left: 0; right: 0;
+height: 8px;
+background: repeating-linear-gradient(90deg,
+var(–saffron) 0px, var(–saffron) 20px,
+var(–crimson) 20px, var(–crimson) 40px,
+var(–gold) 40px, var(–gold) 60px,
+var(–deep-red) 60px, var(–deep-red) 80px
+);
+z-index: 999;
+}
+.border-strip.top { top: 0; }
+.border-strip.bottom { bottom: 0; }
+
+/* Floating food particles */
+.floatie {
+position: fixed;
+pointer-events: none;
+user-select: none;
+animation: drift linear infinite;
+z-index: 1;
+opacity: 0;
+}
+@keyframes drift {
+0%   { transform: translateY(105vh) rotate(0deg) scale(0.8); opacity: 0; }
+5%   { opacity: 0.55; }
+95%  { opacity: 0.55; }
+100% { transform: translateY(-10vh) rotate(360deg) scale(1.1); opacity: 0; }
+}
+
+/* Diyas (lamp dots) twinkling */
+.diya {
+position: fixed;
+font-size: 1.4rem;
+animation: twinkle ease-in-out infinite alternate;
+z-index: 1;
+pointer-events: none;
+}
+@keyframes twinkle {
+0%   { opacity: 0.2; transform: scale(0.85) rotate(-5deg); }
+100% { opacity: 0.9; transform: scale(1.1) rotate(5deg); }
+}
+
+/* === CARD === */
+.card {
+position: relative;
+z-index: 10;
+width: min(480px, 92vw);
+background: linear-gradient(160deg, #2a1200 0%, #1e0d00 60%, #2d1800 100%);
+border-radius: 24px;
+padding: 0;
+overflow: hidden;
+box-shadow:
+0 0 0 2px var(–gold),
+0 0 0 4px var(–crimson),
+0 0 60px rgba(255,153,51,0.25),
+0 30px 80px rgba(0,0,0,0.7);
+animation: cardIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes cardIn {
+from { transform: scale(0.6) translateY(60px) rotate(-3deg); opacity: 0; }
+to   { transform: scale(1) translateY(0) rotate(0deg); opacity: 1; }
+}
+
+/* Gold top bar */
+.card-topbar {
+height: 6px;
+background: linear-gradient(90deg, var(–crimson), var(–saffron), var(–gold), var(–saffron), var(–crimson));
+background-size: 200% 100%;
+animation: shimmer 3s linear infinite;
+}
+@keyframes shimmer {
+0%   { background-position: 0% 0%; }
+100% { background-position: 200% 0%; }
+}
+
+.card-inner {
+padding: 32px 32px 36px;
+}
+
+/* Nepali header label */
+.nepali-label {
+display: inline-block;
+background: linear-gradient(135deg, var(–saffron), var(–gold));
+color: var(–bg1);
+font-size: 0.7rem;
+font-weight: 800;
+letter-spacing: 3px;
+text-transform: uppercase;
+padding: 4px 14px;
+border-radius: 20px;
+margin-bottom: 18px;
+font-family: ‘Poppins’, sans-serif;
+}
+
+.mascot-area {
+position: relative;
+margin: 0 auto 20px;
+width: 120px;
+height: 120px;
+}
+
+.mascot-plate {
+width: 120px;
+height: 120px;
+background: radial-gradient(circle at 35% 35%, #fff8dc, #e8c84a 40%, #c49a10 75%, #8B6914);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 3.8rem;
+box-shadow: 0 0 0 4px #8B6914, 0 0 30px rgba(212,160,23,0.5), inset 0 -6px 12px rgba(0,0,0,0.3);
+animation: plateSpin 8s linear infinite;
+position: relative;
+}
+
+@keyframes plateSpin {
+0%   { box-shadow: 0 0 0 4px #8B6914, 0 0 20px rgba(212,160,23,0.4); }
+50%  { box-shadow: 0 0 0 4px var(–saffron), 0 0 40px rgba(255,153,51,0.7); }
+100% { box-shadow: 0 0 0 4px #8B6914, 0 0 20px rgba(212,160,23,0.4); }
+}
+
+/* Steam animation */
+.steam {
+position: absolute;
+top: -28px;
+font-size: 1.2rem;
+animation: steamRise 2s ease-in-out infinite;
+opacity: 0;
+}
+.steam:nth-child(1) { left: 28px; animation-delay: 0s; }
+.steam:nth-child(2) { left: 50px; animation-delay: 0.6s; }
+.steam:nth-child(3) { left: 72px; animation-delay: 1.2s; }
+
+@keyframes steamRise {
+0%   { opacity: 0; transform: translateY(0) scale(0.8); }
+40%  { opacity: 0.7; }
+100% { opacity: 0; transform: translateY(-28px) scale(1.3); }
+}
+
+h1 {
+font-family: ‘Playfair Display’, serif;
+font-style: italic;
+color: var(–warm-cream);
+font-size: 1.75rem;
+line-height: 1.3;
+margin-bottom: 6px;
+text-shadow: 0 2px 12px rgba(255,153,51,0.3);
+}
+
+h1 span {
+color: var(–saffron);
+font-style: normal;
+font-weight: 700;
+}
+
+.nepali-sub {
+font-family: ‘Kalam’, cursive;
+color: var(–mustard);
+font-size: 1rem;
+margin-bottom: 22px;
+opacity: 0.9;
+}
+
+/* Thali menu */
+.thali-card {
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(212,160,23,0.25);
+border-radius: 16px;
+padding: 16px 18px;
+margin-bottom: 24px;
+text-align: left;
+position: relative;
+overflow: hidden;
+}
+
+.thali-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0;
+width: 3px; height: 100%;
+background: linear-gradient(to bottom, var(–saffron), var(–crimson), var(–gold));
+}
+
+.thali-title {
+font-family: ‘Playfair Display’, serif;
+color: var(–gold);
+font-size: 0.8rem;
+letter-spacing: 2px;
+text-transform: uppercase;
+margin-bottom: 10px;
+padding-left: 10px;
+}
+
+.thali-item {
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 5px 10px;
+color: var(–warm-cream);
+font-size: 0.87rem;
+font-weight: 600;
+border-radius: 8px;
+transition: background 0.2s;
+}
+
+.thali-item:hover {
+background: rgba(255,153,51,0.08);
+}
+
+.thali-item .dish-emoji { font-size: 1.2rem; }
+.thali-desc { color: rgba(255,248,238,0.5); font-size: 0.75rem; font-weight: 400; }
+
+/* Buttons */
+.buttons-area {
+display: flex;
+gap: 12px;
+align-items: center;
+justify-content: center;
+}
+
+.btn-yes {
+background: linear-gradient(135deg, #2ecc71, #1a9e55);
+color: white;
+border: none;
+border-radius: 50px;
+padding: 15px 40px;
+font-family: ‘Poppins’, sans-serif;
+font-size: 1.1rem;
+font-weight: 800;
+cursor: pointer;
+box-shadow: 0 6px 24px rgba(46,204,113,0.4);
+transition: transform 0.15s, box-shadow 0.15s;
+letter-spacing: 0.5px;
+flex-shrink: 0;
+}
+
+.btn-yes:hover {
+transform: scale(1.08) translateY(-2px);
+box-shadow: 0 12px 32px rgba(46,204,113,0.5);
+}
+
+.btn-no {
+background: linear-gradient(135deg, var(–crimson), var(–deep-red));
+color: white;
+border: none;
+border-radius: 50px;
+padding: 13px 24px;
+font-family: ‘Kalam’, cursive;
+font-size: 1rem;
+font-weight: 700;
+cursor: pointer;
+position: fixed;
+z-index: 200;
+white-space: nowrap;
+box-shadow: 0 6px 20px rgba(192,57,43,0.4);
+transition: font-size 0.2s, padding 0.2s, opacity 0.3s;
+}
+
+/* Dodge tooltip */
+.dodge-toast {
+position: fixed;
+background: linear-gradient(135deg, var(–saffron), var(–mustard));
+color: var(–bg1);
+font-family: ‘Kalam’, cursive;
+font-weight: 700;
+font-size: 0.88rem;
+padding: 7px 16px;
+border-radius: 24px;
+pointer-events: none;
+z-index: 300;
+white-space: nowrap;
+opacity: 0;
+transform: translateY(-6px);
+transition: opacity 0.18s;
+box-shadow: 0 4px 16px rgba(255,153,51,0.4);
+}
+.dodge-toast.show { opacity: 1; }
+
+/* === SUCCESS SCREEN === */
+.success-screen {
+display: none;
+padding: 36px 28px 40px;
+text-align: center;
+animation: cardIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.success-screen.active { display: block; }
+.main-screen.hidden { display: none; }
+
+.success-thali {
+font-size: 5rem;
+display: block;
+animation: thaliPop 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.2s both;
+filter: drop-shadow(0 0 24px rgba(255,153,51,0.7));
+}
+
+@keyframes thaliPop {
+from { transform: scale(0) rotate(-20deg); opacity: 0; }
+to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.success-title {
+font-family: ‘Playfair Display’, serif;
+color: var(–saffron);
+font-size: 2rem;
+margin: 18px 0 6px;
+text-shadow: 0 0 30px rgba(255,153,51,0.5);
+animation: fadeUp 0.5s ease-out 0.5s both;
+}
+
+.success-nepali {
+font-family: ‘Kalam’, cursive;
+color: var(–gold);
+font-size: 1.1rem;
+margin-bottom: 14px;
+animation: fadeUp 0.5s ease-out 0.65s both;
+}
+
+.success-sub {
+color: rgba(255,248,238,0.8);
+font-size: 0.95rem;
+line-height: 1.8;
+animation: fadeUp 0.5s ease-out 0.8s both;
+}
+
+.floating-hearts span {
+display: inline-block;
+font-size: 1.6rem;
+animation: heartFloat 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.floating-hearts span:nth-child(1) { animation-delay: 1s; }
+.floating-hearts span:nth-child(2) { animation-delay: 1.15s; }
+.floating-hearts span:nth-child(3) { animation-delay: 1.3s; }
+
+@keyframes heartFloat {
+from { transform: translateY(20px) scale(0); opacity: 0; }
+to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(18px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Confetti */
+.confetti-wrap {
+position: fixed; inset: 0;
+pointer-events: none; z-index: 999;
+}
+.conf {
+position: absolute;
+top: -20px;
+border-radius: 2px;
+animation: confDrop linear forwards;
+}
+@keyframes confDrop {
+to { transform: translateY(110vh) rotate(900deg); opacity: 0; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="border-strip top"></div>
+<div class="border-strip bottom"></div>
+<div class="mandala-bg"></div>
+<div id="floaties"></div>
+<div id="diyas"></div>
+<div class="dodge-toast" id="toast"></div>
+<div class="confetti-wrap" id="confetti"></div>
+
+<div class="card">
+  <div class="card-topbar"></div>
+
+  <!-- MAIN SCREEN -->
+
+  <div class="main-screen card-inner" id="mainScreen">
+    <div class="nepali-label">🇳🇵 Special Invitation</div>
+
+```
+<div class="mascot-area">
+  <div class="mascot-plate">
+    🍛
+    <span class="steam">〰️</span>
+    <span class="steam">〰️</span>
+    <span class="steam">〰️</span>
+  </div>
+</div>
+
+<h1>Mero saath <span>Dal Bhat</span> khane?</h1>
+<p class="nepali-sub">मेरो साथ खाना खाने? 🙏</p>
+
+<div class="thali-card">
+  <div class="thali-title">✨ Tonight's Thali</div>
+  <div class="thali-item">
+    <span class="dish-emoji">🍲</span>
+    <div>
+      <div>Dal Bhat Tarkari</div>
+      <div class="thali-desc">Warm lentil soup + steamed rice + seasonal sabji</div>
+    </div>
+  </div>
+  <div class="thali-item">
+    <span class="dish-emoji">🥩</span>
+    <div>
+      <div>Buff Choila</div>
+      <div class="thali-desc">Spiced grilled meat, Newari style 🔥</div>
+    </div>
+  </div>
+  <div class="thali-item">
+    <span class="dish-emoji">🥟</span>
+    <div>
+      <div>Steamed Momo</div>
+      <div class="thali-desc">Handmade, fresh, with achar ko chhop</div>
+    </div>
+  </div>
+  <div class="thali-item">
+    <span class="dish-emoji">🍮</span>
+    <div>
+      <div>Sikarni for dessert</div>
+      <div class="thali-desc">Sweet creamy yoghurt with cardamom & nuts</div>
+    </div>
+  </div>
+</div>
+
+<div class="buttons-area" id="btnArea">
+  <button class="btn-yes" onclick="sayYes()">Huncha! 😍</button>
+  <button class="btn-no" id="noBtn" onmouseenter="dodgeNo(event)" ontouchstart="dodgeNo(event)">Hudaina</button>
+</div>
+```
+
+  </div>
+
+  <!-- SUCCESS SCREEN -->
+
+  <div class="success-screen" id="successScreen">
+    <span class="success-thali">🍛</span>
+    <div class="success-title">Ekdam Ramro! 🎉</div>
+    <div class="success-nepali">एकदम राम्रो! मलाई थाहा थियो!</div>
+    <div class="success-sub">
+      Bhaat pakauchu, timi aau bas!<br>
+      I knew you couldn't say no to momo 🥟<br>
+      <br>
+      <span style="color: var(--saffron); font-weight:700;">Tonight. You. Me. Dal Bhat. 🕯️</span>
+    </div>
+    <div class="floating-hearts" style="margin-top: 20px;">
+      <span>🧡</span> <span>🍛</span> <span>🧡</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ===== Floating emojis =====
+  const foodItems = ['🍛','🥟','🌶️','🧅','🫚','🍲','🥩','🫙','🌿','🍵','🫖','✨','🙏','🇳🇵'];
+  const floatContainer = document.getElementById('floaties');
+  for (let i = 0; i < 20; i++) {
+    const el = document.createElement('div');
+    el.className = 'floatie';
+    el.textContent = foodItems[Math.floor(Math.random() * foodItems.length)];
+    el.style.cssText = `
+      left: ${Math.random() * 100}vw;
+      font-size: ${1 + Math.random() * 1.5}rem;
+      animation-duration: ${9 + Math.random() * 13}s;
+      animation-delay: ${Math.random() * 14}s;
+    `;
+    floatContainer.appendChild(el);
+  }
+
+  // ===== Diya lamps =====
+  const diyaContainer = document.getElementById('diyas');
+  const diyaPositions = [
+    [5,5],[95,5],[5,92],[95,92],[50,3],[3,50],[97,50],[50,97],
+    [15,8],[85,8],[15,88],[85,88]
+  ];
+  diyaPositions.forEach(([x, y], i) => {
+    const d = document.createElement('div');
+    d.className = 'diya';
+    d.textContent = '🪔';
+    d.style.cssText = `left:${x}vw; top:${y}vh; animation-duration:${1.5+Math.random()}s; animation-delay:${Math.random()*2}s;`;
+    diyaContainer.appendChild(d);
+  });
+
+  // ===== No button dodge =====
+  const noBtn = document.getElementById('noBtn');
+  const toast = document.getElementById('toast');
+  let dodgeCount = 0;
+  let toastTimer;
+
+  const nepaliRejections = [
+    "Hudaina? 😮", "Sach ma? 🤨", "Momo ni khaudainau? 😤",
+    "Piro chha bhaneko? 🌶️", "Bhaat ko lagi ta aau na! 🍛",
+    "Achar ni cha!! 😭", "Last palta socha…", "Thikai cha, bhaat mann parcha!",
+  ];
+
+  const toastMessages = [
+    "Pakdina chu! 😏", "Bhaat bhagcha! 💨", "Momo uda! 🥟💨",
+    "Hudaina bhancha? Haha! 😂", "Mero dal chiso hunchha!! 😤",
+    "Catch me if you can! 🏃", "Yesto pani hunchha ra! 🙄"
+  ];
+
+  function dodgeNo(e) {
+    e.preventDefault();
+    dodgeCount++;
+
+    // Shrink label & size
+    const shrink = Math.max(0.6, 1 - dodgeCount * 0.05);
+    noBtn.style.fontSize = (shrink * 1) + 'rem';
+    noBtn.style.padding = `${Math.max(5, 13 - dodgeCount)}px ${Math.max(10, 24 - dodgeCount * 1.5)}px`;
+
+    // Update label
+    if (dodgeCount <= nepaliRejections.length) {
+      noBtn.textContent = nepaliRejections[dodgeCount - 1];
+    }
+
+    // Random jump
+    const pad = 70;
+    const nx = pad + Math.random() * (window.innerWidth - pad * 2 - noBtn.offsetWidth);
+    const ny = pad + Math.random() * (window.innerHeight - pad * 2 - noBtn.offsetHeight);
+    noBtn.style.left = nx + 'px';
+    noBtn.style.top  = ny + 'px';
+
+    // Toast message
+    const cx = e.clientX || (e.touches?.[0]?.clientX) || nx;
+    const cy = e.clientY || (e.touches?.[0]?.clientY) || ny;
+    toast.textContent = toastMessages[Math.floor(Math.random() * toastMessages.length)];
+    toast.style.left = Math.min(cx + 12, window.innerWidth - 200) + 'px';
+    toast.style.top  = Math.max(cy - 42, 20) + 'px';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1000);
+
+    // Vanish after too many tries
+    if (dodgeCount >= 9) {
+      noBtn.style.opacity = '0';
+      noBtn.style.pointerEvents = 'none';
+    }
+  }
+
+  // ===== Yes handler =====
+  function sayYes() {
+    document.getElementById('mainScreen').classList.add('hidden');
+    noBtn.style.display = 'none';
+    document.getElementById('successScreen').classList.add('active');
+    launchConfetti();
+  }
+
+  function launchConfetti() {
+    const wrap = document.getElementById('confetti');
+    const colors = [
+      '#FF9933','#C0392B','#D4A017','#2ecc71',
+      '#e74c3c','#f39c12','#ffffff','#FFCC44'
+    ];
+    for (let i = 0; i < 110; i++) {
+      const c = document.createElement('div');
+      c.className = 'conf';
+      const size = 6 + Math.random() * 9;
+      c.style.cssText = `
+        left: ${Math.random() * 100}vw;
+        width: ${size}px; height: ${size}px;
+        background: ${colors[Math.floor(Math.random() * colors.length)]};
+        border-radius: ${Math.random() > 0.4 ? '50%' : '2px'};
+        animation-duration: ${2 + Math.random() * 3}s;
+        animation-delay: ${Math.random() * 0.8}s;
+        opacity: ${0.7 + Math.random() * 0.3};
+      `;
+      wrap.appendChild(c);
+    }
+    setTimeout(() => wrap.innerHTML = '', 5000);
+  }
+
+  // Position no button initially
+  window.addEventListener('load', () => {
+    const area = document.getElementById('btnArea');
+    const rect = area.getBoundingClientRect();
+    noBtn.style.left = (rect.right - noBtn.offsetWidth - 10) + 'px';
+    noBtn.style.top  = (rect.top + (rect.height - noBtn.offsetHeight) / 2) + 'px';
+  });
+</script>
+
+</body>
+</html>
